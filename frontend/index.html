@@ -53,9 +53,9 @@
                        color: white;
                    }
 #T1 tr:nth-child(even){background-color: #040004;}
-#T1 tr:hover {background-color: #b30000;}
+#T1 tr:nth-child(odd){background-color: #040004;}
 #T2 tr:nth-child(even){background-color: #040004;}
-#T2 tr:hover {background-color: #b30000;}
+#T2 tr:nth-child(odd){background-color: #040004;}
                    
         #h1 {
             color: #025afad1;
@@ -194,7 +194,6 @@ function saveMagazine(event) {
                 let adresa = $('#adresa').val()
             if(id) {
                     axios.put('/magazine/' +id, {
-                        id:id,
                         nume:nume,
                         adresa:adresa
                     }).then(function(result) {
@@ -207,7 +206,6 @@ function saveMagazine(event) {
 
                     //make a request to POST /magazine
                     axios.post('/magazine', {
-                        id:id,
                         nume:nume,
                         adresa:adresa
                     }).then(function(result) {
@@ -281,7 +279,6 @@ function saveComenzi(event) {
                 let pret = $('#pret').val()
             if(id) {
                     axios.put('/comenzi/' +id, {
-                        id:id,
                         produs:produs,
                         bucati:bucati,
                         pret:pret
@@ -294,7 +291,6 @@ function saveComenzi(event) {
                 }
                     //make a request to POST /comenzi
                     axios.post('/comenzi', {
-                        id:id,
                         produs:produs,
                         bucati:bucati,
                         pret:pret
