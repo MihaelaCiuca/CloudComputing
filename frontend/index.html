@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        #T1, th, td {
+            border: 1px solid black;
+            border-collapse :collapse;
+            color:#025afad1;
+            padding:8px;
+  
+                      }
+        
+        #T1 caption{
+             text-align:left;
+             font-family:impact;
+             font-size:200%;
+             color:#025afad1;
+                   }
+        #T2, th, td {
+            border: 1px solid black;
+            border-collapse :collapse;
+            color:white;
+  
+                       }
+         #T2 caption{
+             text-align:left;
+             font-family:impact;
+             color:#025afad1;
+             font-size:200%;
+                   }   
+         #T2{
+                       display:inline-block;
+                       overflow-x:auto;
+                   }
+                   #T1{
+                       display:inline-block;margin-right:600px;
+                       overflow-x:auto;
+                   }
+                   #T1 th{
+                       height:70px;
+                       padding-top: 12px;
+                       padding-bottom: 12px;
+                       text-align: left;
+                       background-color: #990000;
+                       color: white;
+                   }
+                   #T2 th{
+                       height:70px;
+                       padding-top: 12px;
+                       padding-bottom: 12px;
+                       text-align: left;
+                       background-color: #990000;
+                       color: white;
+                   }
+#T1 tr:nth-child(even){background-color: #040004;}
+#T1 tr:hover {background-color: #b30000;}
+#T2 tr:nth-child(even){background-color: #040004;}
+#T2 tr:hover {background-color: #b30000;}
+                   
+        #h1 {
+            color: #025afad1;
+            font-family:impact;
+            text-align:center;
+            font-size:400%;
+        
+        }
+       #F1{float:left;
+           margin-left:100px;
+           color:white;
+         
+           
+       }
+       input[type=text]{
+           background-color:#d9d9d9;
+       }
+       textarea{
+           background-color:#d9d9d9;
+       }
+       input{
+           width:100%;
+       }
+       #F2{
+           
+           margin-left:1000px;
+           margin-right:250px;
+           color:white;
+       }
+
+           .button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: red;
+  border: none;
+  border-radius: 15px;
+  
+}
+
+.button:hover {background-color: red}
+
+.button2 {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: red;
+  border: none;
+  border-radius: 15px;
+  
+}
+
+.button2:hover {background-color: red}
+
+ 
+
+
+</style>
+        <title>GestionareComenzi</title>
+    </head>
+    <body style="background-color:white;">
+        <h1 id="h1" >Gestionare comenzi si magazine </h1>
+        <div id="F1">
+
+<button class="button">Adauga un magazin</button>
+
+
+<form onSubmit="saveMagazine(event)">
+  <input type="hidden" name="id" id="id" /><br />
+  Nume:<br />
+  <input type="text" name="nume" id="nume" /><br />
+  Adresa:<br />
+  <input type="text" name="adresa" id="adresa" /><br />
+  <input type="submit" value="Salveaza">
+  <input type="reset" value="Anuleaza">
+</form>
+<p> &nbsp; </p>
+</div>
+
+<div id="T1"></div>
+<div id="T2"></div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script 
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+            
+
+<script type="text/javascript">
+function showMagazine() {
+    axios.get('/magazine').then(function(results) {
+        
+        let html = `<table style="width:1000px;">
+        <caption>Magazine</caption>
+                <tr>
+                    <th>Id</th>
+                    <th>Nume</th>
+                    <th>Adresa</th> 
+                </tr>`
+        
+        results.data.forEach(function(element) {
+            html += `<tr>
+                        <td>${element.id}</td>
+                        <td>${element.nume}</td>
+                        <td>${element.adresa}</td>
+                        <td>
+                            <button onClick="editMagazine(${element.id})">Editeaza</button>
+                            <button onClick="deleteMagazine(${element.id})">Sterge</button>
+                        </td>
+                    </tr>`
+        })
+
+        html += `</table> `
+        
+        $('#T1').html(html)
+    }).catch(function(error) {
+        console.log(error)
+    })
+}
+
+function saveMagazine(event) {
+                event.preventDefault()
+                //get values from fields
+                let id = $('#id').val()
+                let nume = $('#nume').val()
+                let adresa = $('#adresa').val()
+            if(id) {
+                    axios.put('/magazine/' +id, {
+                        id:id,
+                        nume:nume,
+                        adresa:adresa
+                    }).then(function(result) {
+                        showMagazine()
+                        $(event.target).trigger("reset")
+                    }).catch(function(err) {
+                        alert('Resource could not be saved')
+                    })
+                }
+
+                    //make a request to POST /magazine
+                    axios.post('/magazine', {
+                        id:id,
+                        nume:nume,
+                        adresa:adresa
+                    }).then(function(result) {
+                        showMagazine()
+                        $(event.target).trigger("reset")
+                    }).catch(function(err) {
+                        alert('Resource could not be saved')
+                    })
+                }
+            
+            
+            function editMagazine(id) {
+                //get the values from the server
+                axios.get('/magazine/'+id).then(function(result) {
+                    //display values in the form
+                    $('#id').val(result.data.id)
+                    $('#nume').val(result.data.nume)
+                    $('#adresa').val(result.data.adresa)
+                }).catch(function(err) {
+                    console.log(err)
+                    alert('Could not find resource')
+                })
+            }
+            function deleteMagazine(id) {
+                axios.delete('/magazine/'+id).then(function(result) {
+                    showMagazine()
+                }).catch(function(err) {
+                    alert('Resource could not delete resource')
+                }) 
+            }
+            
+            
+            function showComenzi() {
+    axios.get('/comenzi').then(function(results) {
+         
+        let html = `<table style="width:1000px;">
+        <caption>Comenzi</caption>
+                <tr>
+                    <th>Id</th>
+                    <th>Produs</th>
+                    <th>Bucati</th> 
+                    <th>Pret</th>
+                </tr>`
+                
+        
+        results.data.forEach(function(element) {
+            html += `<tr>
+                        <td>${element.id}</td>
+                        <td>${element.produs}</td>
+                        <td>${element.bucati}</td>
+                        <td>${element.pret}</td>
+                        <td>
+                            <button onClick="editComenzi(${element.id})">Editeaza</button>
+                            <button onClick="deleteComenzi(${element.id})">Sterge</button>
+                        </td>
+                    </tr>`
+        })
+
+        html += `</table>`
+        
+        $('#T2').html(html)
+    }).catch(function(error) {
+        console.log(error)
+    })
+}
+function saveComenzi(event) {
+                event.preventDefault()
+                let id = $('#id').val()
+                let produs = $('#produs').val()
+                let bucati = $('#bucati').val()
+                let pret = $('#pret').val()
+            if(id) {
+                    axios.put('/comenzi/' +id, {
+                        id:id,
+                        produs:produs,
+                        bucati:bucati,
+                        pret:pret
+                    }).then(function(result) {
+                        showComenzi()
+                        $(event.target).trigger("reset")
+                    }).catch(function(err) {
+                        alert('Resource could not be saved')
+                    })
+                }
+                    //make a request to POST /comenzi
+                    axios.post('/comenzi', {
+                        id:id,
+                        produs:produs,
+                        bucati:bucati,
+                        pret:pret
+                    }).then(function(result) {
+                        showComenzi()
+                        $(event.target).trigger("reset")
+                    }).catch(function(err) {
+                        alert('Resource could not be saved')
+                    })
+                }
+            
+            
+            function editComenzi(id) {
+                //get the values from the server
+                axios.get('/comenzi/'+id).then(function(result) {
+                    //display values in the form
+                    $('#id').val(result.data.id)
+                    $('#produs').val(result.data.produs)
+                    $('#bucati').val(result.data.bucati)
+                    $('#pret').val(result.data.pret)
+                }).catch(function(err) {
+                    console.log(err)
+                    alert('Could not find resource')
+                })
+            }
+            function deleteComenzi(id) {
+                axios.delete('/comenzi/'+id).then(function(result) {
+                    showComenzi()
+                }).catch(function(err) {
+                    alert('Resource could not delete resource')
+                }) 
+            }
+
+
+
+$(document).ready(function() {
+        console.log('Hello from JQuery')
+        showMagazine()
+        showComenzi()
+    })
+   
+</script>
+
+    </body>
+</html>
