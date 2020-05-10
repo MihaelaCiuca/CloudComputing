@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GitHub Repos</title>
+    </head>
+    <body>
+        <div id="content">
+            
+        </div>
+        <style>
+          #T3, th, td {
+            border: 1px solid black;
+            border-collapse :collapse;
+            color:white;
+  
+                       }
+         #T3 caption{
+             text-align:left;
+             font-family:impact;
+             color:#025afad1;
+             font-size:200%;
+                   }   
+         #T3{
+                       display:inline-block;
+                       overflow-x:auto;
+                   }  
+        #T3 th{
+                       height:70px;
+                       padding-top: 12px;
+                       padding-bottom: 12px;
+                       text-align: left;
+                       background-color: #990000;
+                       color: white;
+                   }
+        #T3 tr:nth-child(even){background-color: #040004;}
+        #T3 tr:nth-child(odd){background-color: #040004;}
+        </style>
+                 
+<div id="T3"></div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script 
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        
+function showDetails() {
+   let proxyurl = "https://cors-anywhere.herokuapp.com/";
+    let url='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJdZ_LIZIBskARMk-QagpmZc4&fields=name,rating,opening_hours,formatted_phone_number&key=AIzaSyBwAbZ3jsH8JP0qpZurpp_WSJpcBbI0rJQ'
+    axios.get(proxyurl+url).then(function(results) {
+        console.log(results)
+        
+        let html = `<table style="width:1000px;">
+        <caption>Magazine</caption>
+                <tr>
+                    <th>Nume</th>
+                    <th>Nr_telefon</th>
+                    <th>Deschis</th>
+                </tr>`
+        
+      
+            html += `<tr>
+                        <td>${results.data.result.name}</td>
+                        <td>${results.data.result.formatted_phone_number}</td>
+                        <td>${results.data.result.opening_hours.open_now}</td>
+                    </tr>`
+       
+        html += `</table> `
+        
+        $('#T3').html(html)
+    }).catch(function(error) {
+        console.log(error)
+        
+    })
+}
+
+$(document).ready(function() {
+        console.log('Hello from JQuery')
+        showDetails()
+       
+    })
+</script>
+    </body>
+</html>

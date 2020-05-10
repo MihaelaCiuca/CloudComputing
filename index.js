@@ -1,8 +1,8 @@
 const express = require('express')
-
 const Sequelize = require('sequelize')
 const axios = require('axios')
-
+const {google} = require('googleapis')
+const sheets = google.sheets('v4')
 
 const sequelize = new Sequelize('magazinedb', 'mihaelaciucabd', 'mihaelaciucabd', {
     dialect: "mysql",
@@ -127,6 +127,7 @@ app.post('/comenzi', (request, response) => {
     })
 })
 
+
 //definire endpoint GET/movies-pt toata lista de filme
 app.get('/comenzi', (request, response) => {
     Comenzi.findAll().then((results) => {
@@ -186,6 +187,8 @@ app.delete('/comenzi/:id', (request, response) => {
         response.status(500).send('database error')
     })
 })
+
+
 app.use('/', express.static('frontend'))
 app.listen(8080)
 
