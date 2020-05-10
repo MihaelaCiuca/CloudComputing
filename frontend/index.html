@@ -163,7 +163,12 @@
         <h1 id="h1" >Gestionare comenzi si magazine </h1>
         <div id="F1">
 
+
+<button id="button2"></button>
+
+<p> &nbsp; </p>
 <button class="button">Adauga un magazin</button>
+
 
 
 <form onSubmit="saveMagazine(event)">
@@ -181,10 +186,6 @@
 <div id="T1"></div>
 <div id="T2"></div>
 
-
-<form onSubmit="ExportaComenzi(event)">
-  <input type="submit" value="Exporta Comenzi in GoogleSheets">
-</form>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script 
@@ -364,6 +365,19 @@ function saveComenzi(event) {
                 }) 
             }
             
+            function showWeather(){
+                let url='https://api.weatherbit.io/v2.0/current?city=Bucharest&key=2ac00cd7258e4c0db91ff1d38be1b959'
+                axios.get(url).then(function(results) {
+                console.log(results)
+                console.log(results.data.data[0].app_temp)
+                let html=`<h4>Vremea astazi in Bucuresti</h4>`
+                html+= `<button style="width:100px;">${results.data.data[0].app_temp} grade, ${results.data.data[0].weather.description} </button>`
+        $('#button2').html(html)
+    }).catch(function(error) {
+        console.log(error)
+        
+    })
+            }
             
                         
 
@@ -371,6 +385,7 @@ $(document).ready(function() {
         console.log('Hello from JQuery')
         showMagazine()
         showComenzi()
+        showWeather()
     })
    
 </script>
