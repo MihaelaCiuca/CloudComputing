@@ -3,11 +3,23 @@ const Sequelize = require('sequelize')
 const axios = require('axios')
 const {google} = require('googleapis')
 const sheets = google.sheets('v4')
+let sequelize
+
+if(process.env.MYSQLCONNSTR_localdb) {
+    let result = process.env.MYSQLCONNSTR_localdb.split(";")
+    
+    sequelize = new Sequelize(result[0].split("=")[1], result[2].split("=")[1], result[3].split("=")[1], {
+        dialect: "mysql",
+        host: result[1].split("=")[1].split(":")[0],
+        port: result[1].split("=")[1].split(":")[1]
+    })
+} else {
 
 const sequelize = new Sequelize('magazinedb', 'mihaelaciucabd', 'mihaelaciucabd', {
     dialect: "mysql",
     host: "localhost"
 })
+}
 sequelize.authenticate().then(() => {
     console.log("Connected to database")
 }).catch(() => {
