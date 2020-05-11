@@ -2,6 +2,61 @@
 <html>
     <head>
         <style>
+             #T3, th, td {
+            border: 1px solid black;
+            border-collapse :collapse;
+            color:white;
+  
+                       }
+         #T3 caption{
+             text-align:left;
+             font-family:impact;
+             color:#025afad1;
+             font-size:200%;
+                   }   
+         #T3{
+                       display:inline-block;
+                       overflow-x:auto;
+                   }  
+        #T3 th{
+                       height:70px;
+                       padding-top: 12px;
+                       padding-bottom: 12px;
+                       text-align: left;
+                       background-color: #990000;
+                       color: white;
+                   }
+        #T3 tr:nth-child(even){background-color: #040004;}
+        #T3 tr:nth-child(odd){background-color: #040004;}
+        
+        
+        
+         #T4, th, td {
+            border: 1px solid black;
+            border-collapse :collapse;
+            color:white;
+  
+                       }
+         #T4 caption{
+             text-align:left;
+             font-family:impact;
+             color:#025afad1;
+             font-size:200%;
+                   }   
+         #T4{
+                       display:inline-block;
+                       overflow-x:auto;
+                   }  
+        #T4 th{
+                       height:70px;
+                       padding-top: 12px;
+                       padding-bottom: 12px;
+                       text-align: left;
+                       background-color: #990000;
+                       color: white;
+                   }
+        #T4 tr:nth-child(even){background-color: #040004;}
+        #T4 tr:nth-child(odd){background-color: #040004;}
         #T1, th, td {
             border: 1px solid black;
             border-collapse :collapse;
@@ -185,7 +240,8 @@
 
 <div id="T1"></div>
 <div id="T2"></div>
-
+<div id="T3"></div>
+<div id="T4"></div>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script 
@@ -195,6 +251,63 @@
             
 
 <script type="text/javascript">
+function showDetails() {
+    let proxyurl = "https://cors-anywhere.herokuapp.com/";
+    let url1='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJdZ_LIZIBskARMk-QagpmZc4&fields=name,rating,opening_hours,formatted_phone_number&key=AIzaSyBwAbZ3jsH8JP0qpZurpp_WSJpcBbI0rJQ'
+    let url2='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJaaUlY0YBskARlX92Q5Xr3q4&fields=name,rating,opening_hours,formatted_phone_number&key=AIzaSyBwAbZ3jsH8JP0qpZurpp_WSJpcBbI0rJQ'
+    
+    
+    axios.get(proxyurl+url1).then(function(results) {
+        console.log(results)
+        
+        let html = `<table style="width:1000px;">
+        <caption>Magazine</caption>
+                <tr>
+                    <th>Nume</th>
+                    <th>Nr_telefon</th>
+                    <th>Deschis</th>
+                </tr>`
+        
+      
+            html += `<tr>
+                        <td>${results.data.result.name}</td>
+                        <td>${results.data.result.formatted_phone_number}</td>
+                        <td>${results.data.result.opening_hours.open_now}</td>
+                    </tr>`
+       
+        html += `</table> `
+        
+        $('#T3').html(html)
+    }).catch(function(error) {
+        console.log(error)
+        
+    })
+    
+    
+     axios.get(proxyurl+url2).then(function(results) {
+        console.log(results)
+        
+        let html = `<table style="width:1000px;">
+        <caption>Magazine</caption>
+                <tr>
+                    <th>Nume</th>
+                    <th>Nr_telefon</th>
+                    <th>Deschis</th>
+                </tr>`
+            html += `<tr>
+                        <td>${results.data.result.name}</td>
+                        <td>${results.data.result.formatted_phone_number}</td>
+                        <td>${results.data.result.opening_hours.open_now}</td>
+                    </tr>`
+        html += `</table> `
+      
+        
+        $('#T4').html(html)
+    }).catch(function(error) {
+        console.log(error)
+        
+    })
+}
 
 function showMagazine() {
     axios.get('/magazine').then(function(results) {
@@ -386,6 +499,7 @@ $(document).ready(function() {
         showMagazine()
         showComenzi()
         showWeather()
+        showDetails
     })
    
 </script>
