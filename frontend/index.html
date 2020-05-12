@@ -253,8 +253,8 @@
 <script type="text/javascript">
 function showDetails() {
     let proxyurl = "https://cors-anywhere.herokuapp.com/";
-    let url1='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJdZ_LIZIBskARMk-QagpmZc4&fields=name,rating,opening_hours,formatted_phone_number&key='
-    let url2='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJaaUlY0YBskARlX92Q5Xr3q4&fields=name,rating,opening_hours,formatted_phone_number&key='
+    let url1='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJdZ_LIZIBskARMk-QagpmZc4&fields=name,rating,opening_hours,formatted_phone_number&key=AIzaSyBwAbZ3jsH8JP0qpZurpp_WSJpcBbI0rJQ'
+    let url2='https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJaaUlY0YBskARlX92Q5Xr3q4&fields=name,rating,opening_hours,formatted_phone_number&key=AIzaSyBwAbZ3jsH8JP0qpZurpp_WSJpcBbI0rJQ'
     
     axios.get(proxyurl+url1).then(function(results) {
         console.log(results)
