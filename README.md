@@ -152,15 +152,15 @@ Metodele de autentificare folosite pentru ambele API-uri se bazeaza pe un API ke
 La Google Places - API key este chiar asociat unui proiect.
 
 ## Capturi ecran aplicatie
-![Imagine1](/images/img1.png)
+![Imagine1](img1.png)
 Format: ![Alt Text](url)
 
-![Imagine2](/images/img3.png)
+![Imagine2](img3.png)
 Format: ![Alt Text](url)
 
-![Imagine3](/images/img4.png)
+![Imagine3](img4.png)
 Format: ![Alt Text](url)
 
-![Imagine4](/images/img5.png)
+![Imagine4](img5.png)
 Format: ![Alt Text](url)
 
