@@ -164,3 +164,7 @@ Informatii magazine
 
 
 ![Imagine4](img5.png)
+<<<<<<< HEAD
+=======
+
+>>>>>>> acf09b7797d9332abbcbd6d8cf606b6c1fb4c490
