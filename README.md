@@ -152,15 +152,15 @@ Metodele de autentificare folosite pentru ambele API-uri se bazeaza pe un API ke
 La Google Places - API key este chiar asociat unui proiect.
 
 ## Capturi ecran aplicatie
+Adauga magazin
 ![Imagine1](img1.png)
-Format: ![Alt Text](url)
 
+
+Magazine si comenzi
 ![Imagine2](img3.png)
-Format: ![Alt Text](url)
 
+Informatii magazine
 ![Imagine3](img4.png)
-Format: ![Alt Text](url)
+
 
 ![Imagine4](img5.png)
-Format: ![Alt Text](url)
-
